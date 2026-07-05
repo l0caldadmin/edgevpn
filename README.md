@@ -39,7 +39,7 @@ It can:
 
 - **Send files via p2p** : Send files over p2p between nodes without establishing a VPN connection.
 
-- **Be used as a library**: Plug a distributed p2p ledger easily in your golang code! For example EdgeVPN powers [LocalAI](https://github.com/mudler/LocalAI)'s P2P features (you can learn more about it [here](https://localai.io/features/distribute/)).
+- **Be used as a library**: Plug a distributed p2p ledger easily in your golang code! For example EdgeVPN powers [LocalAI](https://github.com/l0caldadmin/LocalAI)'s P2P features (you can learn more about it [here](https://localai.io/features/distribute/)).
 
 See the [documentation](https://mudler.github.io/edgevpn).
 
@@ -105,6 +105,42 @@ All edgevpn commands implies that you either specify a `EDGEVPNTOKEN` (or `--tok
 The configuration file is the network definition and allows you to connect over to your peers securely.
 
 **Warning** Exposing this file or passing-it by is equivalent to give full control to the network.
+
+## :lock: API hardening
+
+The API supports read and write endpoints. Starting from the latest hardening changes:
+
+- If the API listens on loopback (for example `127.0.0.1:8080`) or on a unix socket (`unix:///run/edgevpn.sock`), write endpoints work without an API token.
+- If the API listens on a non-local address (for example `0.0.0.0:8080`), write endpoints require `APITOKEN` and a matching token in the request.
+
+### Configure API token for non-local listeners
+
+```bash
+export APITOKEN='change-me-strong-random-token'
+edgevpn --api --api-listen 0.0.0.0:8080
+```
+
+### Write request with token header
+
+```bash
+curl -X PUT \
+  -H "X-EdgeVPN-Token: change-me-strong-random-token" \
+  "http://127.0.0.1:8080/api/ledger/mybucket/mykey/myvalue"
+```
+
+### Write request with Bearer token
+
+```bash
+curl -X DELETE \
+  -H "Authorization: Bearer change-me-strong-random-token" \
+  "http://127.0.0.1:8080/api/ledger/mybucket/mykey"
+```
+
+### Read-only request (no token required)
+
+```bash
+curl "http://127.0.0.1:8080/api/summary"
+```
 
 ## :satellite: As a VPN
 

@@ -15,15 +15,28 @@ package cmd
 
 import (
 	"context"
+	"fmt"
+	"net"
+	"strings"
 	"time"
 
-	"github.com/libp2p/go-libp2p"
-	"github.com/libp2p/go-libp2p/core/metrics"
-	"github.com/mudler/edgevpn/api"
 	"github.com/mudler/edgevpn/pkg/node"
 	"github.com/mudler/edgevpn/pkg/services"
 	"github.com/urfave/cli/v2"
 )
+
+func isLoopbackListenAddress(addr string) bool {
+	host := addr
+	if h, _, err := net.SplitHostPort(addr); err == nil {
+		host = h
+	}
+	host = strings.Trim(host, "[]")
+	if host == "localhost" {
+		return true
+	}
+	ip := net.ParseIP(host)
+	return ip != nil && ip.IsLoopback()
+}
 
 func Proxy() *cli.Command {
 	return &cli.Command{
@@ -34,9 +47,14 @@ func Proxy() *cli.Command {
 		Flags: append(CommonFlags,
 			&cli.StringFlag{
 				Name:    "listen",
-				Value:   ":8080",
+				Value:   "127.0.0.1:8080",
 				Usage:   "Listening address",
 				EnvVars: []string{"PROXYLISTEN"},
+			},
+			&cli.BoolFlag{
+				Name:    "allow-non-local-listen",
+				Usage:   "Allow binding the proxy on non-loopback interfaces",
+				EnvVars: []string{"PROXYALLOWNONLOCAL"},
 			},
 			&cli.BoolFlag{
 				Name: "debug",
@@ -55,15 +73,16 @@ func Proxy() *cli.Command {
 			},
 		),
 		Action: func(c *cli.Context) error {
+			if !c.Bool("allow-non-local-listen") && !isLoopbackListenAddress(c.String("listen")) {
+				return fmt.Errorf("refusing non-local proxy listen address %q; set --allow-non-local-listen to override", c.String("listen"))
+			}
+
 			o, _, ll := cliToOpts(c)
 
 			o = append(o, services.Proxy(
 				time.Duration(c.Int("interval"))*time.Second,
 				time.Duration(c.Int("dead-interval"))*time.Second,
 				c.String("listen"))...)
-
-			bwc := metrics.NewBandwidthCounter()
-			o = append(o, node.WithLibp2pAdditionalOptions(libp2p.BandwidthReporter(bwc)))
 
 			e, err := node.New(o...)
 			if err != nil {
@@ -80,7 +99,7 @@ func Proxy() *cli.Command {
 				return err
 			}
 
-			return api.API(ctx, c.String("listen"), 5*time.Second, 20*time.Second, e, bwc, c.Bool("debug"))
+			select {}
 		},
 	}
 }

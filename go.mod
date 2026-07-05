@@ -7,21 +7,19 @@ require (
 	github.com/benbjohnson/clock v1.3.5
 	github.com/c-robinson/iplib v1.0.8
 	github.com/cenkalti/backoff/v4 v4.3.0
-	github.com/cenkalti/backoff/v7 v7.0.0
 	github.com/creachadair/otp v0.5.4
 	github.com/google/gopacket v1.1.19
 	github.com/hashicorp/golang-lru v1.0.2
 	github.com/ipfs/go-log v1.0.5
 	github.com/ipfs/go-log/v2 v2.9.2
 	github.com/labstack/echo/v4 v4.15.2
-	github.com/labstack/echo/v5 v5.2.1
 	github.com/libp2p/go-libp2p v0.48.0
 	github.com/libp2p/go-libp2p-kad-dht v0.40.0
 	github.com/libp2p/go-libp2p-pubsub v0.16.0
 	github.com/libp2p/zeroconf/v2 v2.2.0
 	github.com/miekg/dns v1.1.72
 	github.com/mudler/go-processmanager v0.1.1
-	github.com/mudler/water v0.0.0-20250808092830-dd90dcf09025
+	github.com/mudler/water v0.0.0-20260705232006-eb8e8f5343f1
 	github.com/multiformats/go-multiaddr v0.16.1
 	github.com/onsi/ginkgo/v2 v2.32.0
 	github.com/onsi/gomega v1.42.1
@@ -29,7 +27,6 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/songgao/packets v0.0.0-20160404182456-549a10cd4091
 	github.com/urfave/cli/v2 v2.27.7
-	github.com/urfave/cli/v3 v3.10.1
 	github.com/vishvananda/netlink v1.3.1
 	github.com/wlynxg/anet v0.0.5
 	go.uber.org/zap v1.28.0
@@ -167,3 +164,5 @@ require (
 )
 
 replace github.com/libp2p/go-libp2p-pubsub => github.com/mudler/go-libp2p-pubsub v0.0.0-20260530201618-205ded1f9cf4
+
+replace github.com/mudler/water => github.com/l0caldadmin/water v0.0.0-20260705232006-eb8e8f5343f1

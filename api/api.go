@@ -17,6 +17,7 @@ package api
 
 import (
 	"context"
+	"crypto/subtle"
 	"embed"
 	"errors"
 	"fmt"
@@ -82,7 +83,45 @@ const (
 	// blocks every other process on the host, which is the right
 	// default for a hardened local control plane.
 	defaultUnixSocketMode os.FileMode = 0o660
+	apiTokenHeader                    = "X-EdgeVPN-Token"
+	apiTokenEnv                       = "APITOKEN"
 )
+
+func isLocalOnlyListen(addr string) bool {
+	if strings.HasPrefix(addr, UnixSocketScheme) {
+		return true
+	}
+	host := addr
+	if h, _, err := net.SplitHostPort(addr); err == nil {
+		host = h
+	}
+	host = strings.Trim(host, "[]")
+	if host == "localhost" {
+		return true
+	}
+	ip := net.ParseIP(host)
+	return ip != nil && ip.IsLoopback()
+}
+
+func authorizeWrite(c echo.Context, token string, requireToken bool) error {
+	if !requireToken {
+		return nil
+	}
+	if token == "" {
+		return echo.NewHTTPError(http.StatusForbidden, fmt.Sprintf("%s must be set for non-local API listeners", apiTokenEnv))
+	}
+	reqToken := strings.TrimSpace(c.Request().Header.Get(apiTokenHeader))
+	if reqToken == "" {
+		authHeader := strings.TrimSpace(c.Request().Header.Get("Authorization"))
+		if strings.HasPrefix(strings.ToLower(authHeader), "bearer ") {
+			reqToken = strings.TrimSpace(authHeader[7:])
+		}
+	}
+	if subtle.ConstantTimeCompare([]byte(reqToken), []byte(token)) != 1 {
+		return echo.NewHTTPError(http.StatusUnauthorized, "invalid API token")
+	}
+	return nil
+}
 
 // unixSocketMode resolves the file mode that should be applied to
 // the API socket. APILISTENUNIXMODE is interpreted as an octal value
@@ -234,6 +273,9 @@ func API(ctx context.Context, l string, defaultInterval, timeout time.Duration, 
 
 	ec := echo.New()
 
+	writeToken := strings.TrimSpace(os.Getenv(apiTokenEnv))
+	requireWriteToken := !isLocalOnlyListen(l)
+
 	var (
 		unixSocketPath  string
 		ownsSocketFile  bool // true iff WE created the file; false for systemd-passed FDs
@@ -297,6 +339,9 @@ func API(ctx context.Context, l string, defaultInterval, timeout time.Duration, 
 
 	if e.PeerGater() != nil {
 		ec.PUT(fmt.Sprintf("%s/:state", PeerGateURL), func(c echo.Context) error {
+			if err := authorizeWrite(c, writeToken, requireWriteToken); err != nil {
+				return err
+			}
 			state := c.Param("state")
 
 			switch state {
@@ -455,6 +500,9 @@ func API(ctx context.Context, l string, defaultInterval, timeout time.Duration, 
 
 	// Store arbitrary data
 	ec.PUT(fmt.Sprintf("%s/:bucket/:key/:value", LedgerURL), func(c echo.Context) error {
+		if err := authorizeWrite(c, writeToken, requireWriteToken); err != nil {
+			return err
+		}
 		bucket := c.Param("bucket")
 		key := c.Param("key")
 		value := c.Param("value")
@@ -485,6 +533,9 @@ func API(ctx context.Context, l string, defaultInterval, timeout time.Duration, 
 
 	// Announce dns
 	ec.POST(DNSURL, func(c echo.Context) error {
+		if err := authorizeWrite(c, writeToken, requireWriteToken); err != nil {
+			return err
+		}
 		d := new(apiTypes.DNS)
 		if err := c.Bind(d); err != nil {
 			return echo.NewHTTPError(http.StatusBadRequest, err.Error())
@@ -500,6 +551,9 @@ func API(ctx context.Context, l string, defaultInterval, timeout time.Duration, 
 
 	// Delete data from ledger
 	ec.DELETE(fmt.Sprintf("%s/:bucket", LedgerURL), func(c echo.Context) error {
+		if err := authorizeWrite(c, writeToken, requireWriteToken); err != nil {
+			return err
+		}
 		bucket := c.Param("bucket")
 
 		ledger.AnnounceDeleteBucket(context.Background(), defaultInterval, timeout, bucket)
@@ -507,6 +561,9 @@ func API(ctx context.Context, l string, defaultInterval, timeout time.Duration, 
 	})
 
 	ec.DELETE(fmt.Sprintf("%s/:bucket/:key", LedgerURL), func(c echo.Context) error {
+		if err := authorizeWrite(c, writeToken, requireWriteToken); err != nil {
+			return err
+		}
 		bucket := c.Param("bucket")
 		key := c.Param("key")
 
