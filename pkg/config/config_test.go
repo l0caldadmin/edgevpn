@@ -16,6 +16,8 @@ package config
 import (
 	"testing"
 	"time"
+
+	"github.com/mudler/edgevpn/pkg/blockchain"
 )
 
 // TestRelayServiceResourcesDefaults verifies that a zero-valued RelayService
@@ -91,5 +93,40 @@ func TestRelayServiceResourcesDoesNotMutateDefaults(t *testing.T) {
 	}
 	if a.Limit == b.Limit {
 		t.Error("a.Limit and b.Limit share the same pointer; defaults are being aliased")
+	}
+}
+
+func TestNormalizeOwnershipMode(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		fallback blockchain.OwnershipMode
+		want     blockchain.OwnershipMode
+		wantErr  bool
+	}{
+		{name: "empty falls back", input: "", fallback: blockchain.OwnershipOff, want: blockchain.OwnershipOff},
+		{name: "observe alias", input: "log-only", fallback: blockchain.OwnershipOff, want: blockchain.OwnershipObserve},
+		{name: "observe canonical", input: "observe", fallback: blockchain.OwnershipOff, want: blockchain.OwnershipObserve},
+		{name: "enforce alias", input: "on", fallback: blockchain.OwnershipOff, want: blockchain.OwnershipEnforce},
+		{name: "legacy alias", input: "legacy", fallback: blockchain.OwnershipEnforce, want: blockchain.OwnershipEnforce},
+		{name: "invalid mode", input: "experimental", fallback: blockchain.OwnershipOff, want: blockchain.OwnershipOff, wantErr: true},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := normalizeOwnershipMode(tt.input, tt.fallback)
+			if tt.wantErr {
+				if err == nil {
+					t.Fatalf("expected error for %q", tt.input)
+				}
+				return
+			}
+			if err != nil {
+				t.Fatalf("normalizeOwnershipMode(%q) returned error: %v", tt.input, err)
+			}
+			if got != tt.want {
+				t.Fatalf("normalizeOwnershipMode(%q) = %v, want %v", tt.input, got, tt.want)
+			}
+		})
 	}
 }

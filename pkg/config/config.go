@@ -76,11 +76,33 @@ type Config struct {
 }
 
 // Ownership configures ledger ownership enforcement.
-// Mode is one of "off" (default), "observe" (sign + log violations) or
-// "enforce" (sign + reject unauthorized writes).
+// Mode is one of "off" (legacy opt-out), "observe" (sign + log violations) or
+// "enforce" (sign + reject unauthorized writes, default).
 type Ownership struct {
 	Mode string
 	TTL  time.Duration
+}
+
+// normalizeOwnershipMode resolves the user-facing ownership string into the
+// ledger mode used by the blockchain package.
+func normalizeOwnershipMode(mode string, fallback blockchain.OwnershipMode) (blockchain.OwnershipMode, error) {
+	switch strings.ToLower(strings.TrimSpace(mode)) {
+	case "", "off", "legacy", "legacy-opt-out":
+		return fallback, nil
+	case "observe", "log", "log-only":
+		return blockchain.OwnershipObserve, nil
+	case "enforce", "on":
+		return blockchain.OwnershipEnforce, nil
+	default:
+		return fallback, fmt.Errorf("invalid ownership mode %q: expected off, observe, or enforce", mode)
+	}
+}
+
+func warnLegacyOwnershipMode(llger log.StandardLogger, rawMode string, mode blockchain.OwnershipMode) {
+	if strings.TrimSpace(rawMode) == "" || mode != blockchain.OwnershipOff || llger == nil {
+		return
+	}
+	llger.Warnf("ownership mode %q is deprecated; use observe or enforce instead", rawMode)
 }
 
 type PeerGuard struct {
@@ -293,13 +315,11 @@ func (c Config) ToOpts(l log.StandardLogger) ([]node.Option, []vpn.Option, error
 	d := discovery.NewDHT(dhtOpts...)
 	m := &discovery.MDNS{}
 
-	ownershipMode := blockchain.OwnershipOff
-	switch strings.ToLower(c.Ownership.Mode) {
-	case "observe", "log", "log-only":
-		ownershipMode = blockchain.OwnershipObserve
-	case "enforce", "on":
-		ownershipMode = blockchain.OwnershipEnforce
+	ownershipMode, err := normalizeOwnershipMode(c.Ownership.Mode, blockchain.OwnershipOff)
+	if err != nil {
+		return nil, nil, err
 	}
+	warnLegacyOwnershipMode(llger, c.Ownership.Mode, ownershipMode)
 
 	opts := []node.Option{
 		node.ListenAddresses(c.ListenMaddrs...),
@@ -351,7 +371,6 @@ func (c Config) ToOpts(l log.StandardLogger) ([]node.Option, []vpn.Option, error
 		if c.Connection.AutoRelayDiscoveryInterval == 0 {
 			c.Connection.AutoRelayDiscoveryInterval = 5 * time.Minute
 		}
-		// If no relays are specified and no discovery interval, then just use default static relays (to be deprecated)
 
 		relayOpts = append(relayOpts, autorelay.WithPeerSource(d.FindClosePeers(llger, c.Connection.OnlyStaticRelays, staticRelays...)))
 

@@ -29,11 +29,18 @@ This document covers the phased rollout strategy for authenticated ledger entrie
   4. Fix root cause (e.g., misbehaving peer, misconfiguration) and retry.
 - **Exit criteria**: No rejections, network operates as expected, data converges cleanly.
 
+### Phase 2.5: Stabilization Notes
+- **Accepted aliases**: `observe` may also be set as `log` or `log-only`; `enforce` may also be set as `on`.
+- **Legacy compatibility**: `off` remains supported as the legacy opt-out path for embedders and rollback.
+- **Validation behavior**: invalid ownership values now fail fast instead of silently falling back to another mode.
+- **Operator goal**: use this phase to normalize inputs, document allowed values, and eliminate mode drift before broader rollout.
+
 ### Phase 3: Off Mode (Legacy Opt-Out)
 - **Mode flag**: `--ownership=off` or `EDGEVPNOWNERSHIP=off`
 - **Behavior**: Entries are not signed; ledger behavior reverts to height-wins, legacy semantics.
 - **When to use**: Only for networks that cannot upgrade together, or for library users who want legacy behavior.
 - **Note**: Not recommended for production; security guarantees are lost.
+- **Deprecation**: explicit `off` usage now emits a warning so operators can spot lingering legacy deployments.
 
 ## Operator Runbook
 
