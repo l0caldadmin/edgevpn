@@ -125,11 +125,14 @@ func ReceiveFile(ctx context.Context, ledger *blockchain.Ledger, n *node.Node, l
 		l.Debug("Attempting to find file in the blockchain")
 
 		existingValue, found := ledger.GetKey(protocol.FilesLedgerKey, fileID)
-		fi := &types.File{}
-		existingValue.Unmarshal(fi)
 		if !found {
 			l.Debug("file not found on blockchain, retrying in 1 second")
 		} else {
+			fi := &types.File{}
+			if err := existingValue.Unmarshal(fi); err != nil {
+				return err
+			}
+
 			// Decode the Peer
 			d, err := peer.Decode(fi.PeerID)
 			if err != nil {
