@@ -124,7 +124,7 @@ If enforce mode causes issues:
 | Replay attacks prevented | ✗ | ✓ | ✓ |
 | Inactive entries reaped | ✗ | ✓ | ✓ |
 
-*Enforce mode suppresses per-write logs to avoid spam; only aggregated metrics logged.
+*Enforce mode currently logs a warning per rejected write ("ownership violation (rejected): ..."); consider log filtering/rate limiting if volume is high.
 
 ## Library Usage (Embedders)
 
