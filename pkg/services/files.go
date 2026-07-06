@@ -118,48 +118,31 @@ func ReceiveFile(ctx context.Context, ledger *blockchain.Ledger, n *node.Node, l
 		},
 	)
 
+	ticker := time.NewTicker(1 * time.Second)
+	defer ticker.Stop()
+
 	for {
-		select {
-		case <-ctx.Done():
-			return errors.New("context canceled")
-		default:
-			time.Sleep(5 * time.Second)
+		l.Debug("Attempting to find file in the blockchain")
 
-			l.Debug("Attempting to find file in the blockchain")
+		existingValue, found := ledger.GetKey(protocol.FilesLedgerKey, fileID)
+		fi := &types.File{}
+		existingValue.Unmarshal(fi)
+		if !found {
+			l.Debug("file not found on blockchain, retrying in 1 second")
+		} else {
+			// Decode the Peer
+			d, err := peer.Decode(fi.PeerID)
+			if err != nil {
+				return err
+			}
 
-			existingValue, found := ledger.GetKey(protocol.FilesLedgerKey, fileID)
-			fi := &types.File{}
-			existingValue.Unmarshal(fi)
-			// If mismatch, update the blockchain
-			if !found {
-				l.Debug("file not found on blockchain, retrying in 5 seconds")
-				continue
+			l.Debug("file found on blockchain, opening stream to", d)
+
+			// Open a stream
+			stream, err := n.Host().NewStream(ctx, d, protocol.FileProtocol.ID())
+			if err != nil {
+				l.Debugf("failed to dial %s, retrying in 1 second", d)
 			} else {
-				// Retrieve current ID for ip in the blockchain
-				existingValue, found := ledger.GetKey(protocol.FilesLedgerKey, fileID)
-				fi := &types.File{}
-				existingValue.Unmarshal(fi)
-
-				// If mismatch, update the blockchain
-				if !found {
-					return errors.New("file not found")
-				}
-
-				// Decode the Peer
-				d, err := peer.Decode(fi.PeerID)
-				if err != nil {
-					return err
-				}
-
-				l.Debug("file found on blockchain, opening stream to", d)
-
-				// Open a stream
-				stream, err := n.Host().NewStream(ctx, d, protocol.FileProtocol.ID())
-				if err != nil {
-					l.Debugf("failed to dial %s, retrying in 5 seconds", d)
-					continue
-				}
-
 				l.Infof("Saving file %s to %s", fileID, path)
 
 				f, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
@@ -173,6 +156,12 @@ func ReceiveFile(ctx context.Context, ledger *blockchain.Ledger, n *node.Node, l
 				l.Infof("Received file %s to %s", fileID, path)
 				return nil
 			}
+		}
+
+		select {
+		case <-ctx.Done():
+			return errors.New("context canceled")
+		case <-ticker.C:
 		}
 	}
 }
