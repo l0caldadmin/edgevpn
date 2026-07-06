@@ -98,6 +98,13 @@ func normalizeOwnershipMode(mode string, fallback blockchain.OwnershipMode) (blo
 	}
 }
 
+func warnLegacyOwnershipMode(llger log.StandardLogger, rawMode string, mode blockchain.OwnershipMode) {
+	if strings.TrimSpace(rawMode) == "" || mode != blockchain.OwnershipOff || llger == nil {
+		return
+	}
+	llger.Warnf("ownership mode %q is deprecated; use observe or enforce instead", rawMode)
+}
+
 type PeerGuard struct {
 	Enable      bool
 	Relaxed     bool
@@ -312,6 +319,7 @@ func (c Config) ToOpts(l log.StandardLogger) ([]node.Option, []vpn.Option, error
 	if err != nil {
 		return nil, nil, err
 	}
+	warnLegacyOwnershipMode(llger, c.Ownership.Mode, ownershipMode)
 
 	opts := []node.Option{
 		node.ListenAddresses(c.ListenMaddrs...),
@@ -363,7 +371,6 @@ func (c Config) ToOpts(l log.StandardLogger) ([]node.Option, []vpn.Option, error
 		if c.Connection.AutoRelayDiscoveryInterval == 0 {
 			c.Connection.AutoRelayDiscoveryInterval = 5 * time.Minute
 		}
-		// If no relays are specified and no discovery interval, then just use default static relays (to be deprecated)
 
 		relayOpts = append(relayOpts, autorelay.WithPeerSource(d.FindClosePeers(llger, c.Connection.OnlyStaticRelays, staticRelays...)))
 

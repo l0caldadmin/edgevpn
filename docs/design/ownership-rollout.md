@@ -40,6 +40,7 @@ This document covers the phased rollout strategy for authenticated ledger entrie
 - **Behavior**: Entries are not signed; ledger behavior reverts to height-wins, legacy semantics.
 - **When to use**: Only for networks that cannot upgrade together, or for library users who want legacy behavior.
 - **Note**: Not recommended for production; security guarantees are lost.
+- **Deprecation**: explicit `off` usage now emits a warning so operators can spot lingering legacy deployments.
 
 ## Operator Runbook
 
