@@ -77,7 +77,7 @@ type Config struct {
 
 // Ownership configures ledger ownership enforcement.
 // Mode is one of "off" (legacy opt-out), "observe" (sign + log violations) or
-// "enforce" (sign + reject unauthorized writes, default).
+// "enforce" (sign + reject unauthorized writes; CLI default).
 type Ownership struct {
 	Mode string
 	TTL  time.Duration
