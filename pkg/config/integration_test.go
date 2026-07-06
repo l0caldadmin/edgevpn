@@ -24,16 +24,9 @@ import (
 
 var _ = Describe("Config integration: observe mode rollout", func() {
 	Describe("Ownership mode environment and defaults", func() {
-		It("defaults to enforce mode when not specified", func() {
+		It("defaults to an empty mode when not specified (CLI applies enforce by default)", func() {
 			c := &config.Ownership{}
 			Expect(c.Mode).To(Equal(""))
-
-			// Simulate CLI default application
-			mode := c.Mode
-			if mode == "" {
-				mode = "enforce"
-			}
-			Expect(mode).To(Equal("enforce"))
 		})
 
 		It("respects EDGEVPNOWNERSHIP environment variable", func() {
