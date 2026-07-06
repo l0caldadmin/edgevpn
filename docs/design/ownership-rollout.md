@@ -205,7 +205,7 @@ ledger merge: dropped N unauthorized writes; reaper reaped M stale entries
 
 ## Next Steps
 
-1. Deploy binary with observe mode default.
+1. Deploy binary with `EDGEVPNOWNERSHIP=observe` (recommended initial rollout).
 2. Monitor for 1 week.
 3. Schedule enforce rollout once violations stabilize.
 4. After enforce is stable, schedule `--ownership-ttl` tuning if needed (default is 2 minutes; production may use 5–10 minutes).
