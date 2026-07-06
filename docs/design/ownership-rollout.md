@@ -20,7 +20,7 @@ This document covers the phased rollout strategy for authenticated ledger entrie
 
 ### Phase 2: Enforce Mode
 - **Mode flag**: `--ownership=enforce` or `EDGEVPNOWNERSHIP=enforce` (binary default)
-- **Behavior**: Unauthorized writes are rejected silently (not logged per-write to avoid spam); only summary metrics recorded.
+- **Behavior**: Unauthorized writes are rejected; policy violations are logged as warnings (one per rejected write).
 - **Network requirement**: All nodes must be in observe or enforce. Mixing with off-mode breaks the ledger.
 - **How to deploy**:
   1. Upgrade all nodes to the new binary.
@@ -124,7 +124,7 @@ If enforce mode causes issues:
 | Replay attacks prevented | ✗ | ✓ | ✓ |
 | Inactive entries reaped | ✗ | ✓ | ✓ |
 
-*Enforce mode suppresses per-write logs to avoid spam; only aggregated metrics logged.
+*Enforce mode currently logs a warning per rejected write ("ownership violation (rejected): ..."); consider log filtering/rate limiting if volume is high.
 
 ## Library Usage (Embedders)
 
@@ -205,7 +205,7 @@ ledger merge: dropped N unauthorized writes; reaper reaped M stale entries
 
 ## Next Steps
 
-1. Deploy binary with observe mode default.
+1. Deploy binary with `EDGEVPNOWNERSHIP=observe` (recommended initial rollout).
 2. Monitor for 1 week.
 3. Schedule enforce rollout once violations stabilize.
 4. After enforce is stable, schedule `--ownership-ttl` tuning if needed (default is 2 minutes; production may use 5–10 minutes).
