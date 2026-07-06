@@ -20,7 +20,7 @@ This document covers the phased rollout strategy for authenticated ledger entrie
 
 ### Phase 2: Enforce Mode
 - **Mode flag**: `--ownership=enforce` or `EDGEVPNOWNERSHIP=enforce` (binary default)
-- **Behavior**: Unauthorized writes are rejected silently (not logged per-write to avoid spam); only summary metrics recorded.
+- **Behavior**: Unauthorized writes are rejected; policy violations are logged as warnings (one per rejected write).
 - **Network requirement**: All nodes must be in observe or enforce. Mixing with off-mode breaks the ledger.
 - **How to deploy**:
   1. Upgrade all nodes to the new binary.
