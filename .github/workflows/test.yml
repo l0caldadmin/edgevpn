@@ -91,8 +91,6 @@ jobs:
               EDGEVPNCONFIG=config.yaml ./.github/tests.sh
       - name: Codecov
         uses: codecov/codecov-action@v7.0.0
-        with:
-          file: coverage.txt
           
   vpntest:
     runs-on: ubuntu-latest
