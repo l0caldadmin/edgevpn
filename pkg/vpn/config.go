@@ -95,8 +95,11 @@ func NetLinkBootstrap(b bool) func(cfg *Config) error {
 func WithTimeout(s string) Option {
 	return func(cfg *Config) error {
 		d, err := time.ParseDuration(s)
+		if err != nil {
+			return err
+		}
 		cfg.Timeout = d
-		return err
+		return nil
 	}
 }
 

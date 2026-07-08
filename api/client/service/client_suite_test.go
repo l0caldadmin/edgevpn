@@ -14,7 +14,6 @@ limitations under the License.
 package service_test
 
 import (
-	"fmt"
 	"os"
 	"testing"
 	"time"
@@ -29,8 +28,7 @@ var testInstance = os.Getenv("TEST_INSTANCE")
 
 func TestService(t *testing.T) {
 	if testInstance == "" {
-		fmt.Println("a testing instance has to be defined with TEST_INSTANCE")
-		os.Exit(1)
+		t.Skip("skipping service suite: TEST_INSTANCE is not set")
 	}
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Service Suite")

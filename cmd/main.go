@@ -26,7 +26,6 @@ import (
 	"github.com/libp2p/go-libp2p/core/network"
 
 	"github.com/mudler/edgevpn/api"
-	"github.com/mudler/edgevpn/pkg/node"
 	edgevpn "github.com/mudler/edgevpn/pkg/node"
 	"github.com/mudler/edgevpn/pkg/services"
 	"github.com/mudler/edgevpn/pkg/vpn"
@@ -194,7 +193,7 @@ func Main() func(c *cli.Context) error {
 
 		bwc := metrics.NewBandwidthCounter()
 		if c.Bool("api") {
-			o = append(o, node.WithLibp2pAdditionalOptions(libp2p.BandwidthReporter(bwc)))
+			o = append(o, edgevpn.WithLibp2pAdditionalOptions(libp2p.BandwidthReporter(bwc)))
 		}
 
 		opts, err := vpn.Register(vpnOpts...)

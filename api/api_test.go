@@ -20,6 +20,7 @@ import (
 	"net"
 	"os"
 	"path/filepath"
+	"runtime"
 	"time"
 
 	"github.com/ipfs/go-log"
@@ -103,10 +104,12 @@ var _ = Describe("API", func() {
 
 			fi, err := os.Stat(socket)
 			Expect(err).ToNot(HaveOccurred())
-			// We must NOT be world-writable; that's the entire point of moving
-			// off 127.0.0.1. Owner+group RW (0660) is the documented default.
-			Expect(fi.Mode().Perm() & 0o002).To(Equal(os.FileMode(0)),
-				"socket must not be world-writable, got mode %o", fi.Mode().Perm())
+			if runtime.GOOS != "windows" {
+				// We must NOT be world-writable; that's the entire point of moving
+				// off 127.0.0.1. Owner+group RW (0660) is the documented default.
+				Expect(fi.Mode().Perm()&0o002).To(Equal(os.FileMode(0)),
+					"socket must not be world-writable, got mode %o", fi.Mode().Perm())
+			}
 			Expect(fi.Mode()&os.ModeSocket).ToNot(Equal(os.FileMode(0)),
 				"file must be a unix socket")
 		})

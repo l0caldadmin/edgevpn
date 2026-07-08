@@ -153,8 +153,12 @@ func (p *proxyService) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
+	if len(availableEgresses) == 0 {
+		http.Error(w, "no egress node available", http.StatusServiceUnavailable)
+		return
+	}
 
-	chosen := availableEgresses[rand.Intn(len(availableEgresses)-1)]
+	chosen := availableEgresses[rand.Intn(len(availableEgresses))]
 
 	//fmt.Printf("proxying request for %s to peer %s\n", r.URL, chosen)
 	// We need to send the request to the remote libp2p peer, so

@@ -2,9 +2,32 @@ name: Test
 
 on:
   push:
+    branches:
+      - master
   pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+  workflow_dispatch:
 
 jobs:
+  go-unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: 1.26
+      - name: Run unit tests
+        run: |
+          go test -vet=off ./...
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -68,8 +91,6 @@ jobs:
               EDGEVPNCONFIG=config.yaml ./.github/tests.sh
       - name: Codecov
         uses: codecov/codecov-action@v7.0.0
-        with:
-          file: coverage.txt
           
   vpntest:
     runs-on: ubuntu-latest

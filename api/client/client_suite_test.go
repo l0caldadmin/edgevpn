@@ -14,7 +14,6 @@ limitations under the License.
 package client_test
 
 import (
-	"fmt"
 	"os"
 	"testing"
 	"time"
@@ -29,8 +28,7 @@ var testInstance = os.Getenv("TEST_INSTANCE")
 
 func TestClient(t *testing.T) {
 	if testInstance == "" {
-		fmt.Println("a testing instance has to be defined with TEST_INSTANCE")
-		os.Exit(1)
+		t.Skip("skipping client suite: TEST_INSTANCE is not set")
 	}
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Client Suite")
