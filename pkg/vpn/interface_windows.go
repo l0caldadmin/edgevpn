@@ -19,7 +19,7 @@ package vpn
 import (
 	"net/netip"
 
-	"github.com/mudler/water"
+	"github.com/l0caldadmin/water"
 	"golang.org/x/sys/windows"
 	"golang.zx2c4.com/wireguard/windows/tunnel/winipcfg"
 )

@@ -38,7 +38,7 @@ import (
 	"github.com/l0caldadmin/edgevpn/pkg/trustzone"
 	"github.com/l0caldadmin/edgevpn/pkg/trustzone/authprovider/ecdsa"
 	"github.com/l0caldadmin/edgevpn/pkg/vpn"
-	"github.com/mudler/water"
+	"github.com/l0caldadmin/water"
 	"github.com/multiformats/go-multiaddr"
 	"github.com/peterbourgon/diskv"
 )

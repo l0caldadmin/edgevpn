@@ -21,7 +21,7 @@ import (
 	"os/exec"
 	"strconv"
 
-	"github.com/mudler/water"
+	"github.com/l0caldadmin/water"
 )
 
 func createInterface(c *Config) (*water.Interface, error) {

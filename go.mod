@@ -1,6 +1,6 @@
 module github.com/l0caldadmin/edgevpn
 
-go 1.26
+go 1.26.3
 
 require (
 	github.com/Masterminds/sprig/v3 v3.3.0
@@ -12,6 +12,7 @@ require (
 	github.com/hashicorp/golang-lru v1.0.2
 	github.com/ipfs/go-log v1.0.5
 	github.com/ipfs/go-log/v2 v2.9.2
+	github.com/l0caldadmin/water v0.0.0-20260708175602-1c6bdaae76e0
 	github.com/labstack/echo/v4 v4.15.4
 	github.com/libp2p/go-libp2p v0.48.0
 	github.com/libp2p/go-libp2p-kad-dht v0.41.0
@@ -19,7 +20,6 @@ require (
 	github.com/libp2p/zeroconf/v2 v2.2.0
 	github.com/miekg/dns v1.1.72
 	github.com/mudler/go-processmanager v0.1.1
-	github.com/mudler/water v0.0.0-20260705232006-eb8e8f5343f1
 	github.com/multiformats/go-multiaddr v0.16.1
 	github.com/onsi/ginkgo/v2 v2.32.0
 	github.com/onsi/gomega v1.42.1
@@ -30,7 +30,7 @@ require (
 	github.com/vishvananda/netlink v1.3.1
 	github.com/wlynxg/anet v0.0.5
 	go.uber.org/zap v1.28.0
-	golang.org/x/sys v0.46.0
+	golang.org/x/sys v0.47.0
 	golang.zx2c4.com/wireguard/windows v1.0.1
 	gopkg.in/yaml.v2 v2.4.0
 )
@@ -164,5 +164,3 @@ require (
 )
 
 replace github.com/libp2p/go-libp2p-pubsub => github.com/mudler/go-libp2p-pubsub v0.0.0-20260530201618-205ded1f9cf4
-
-replace github.com/mudler/water => github.com/l0caldadmin/water v0.0.0-20260705232006-eb8e8f5343f1
