@@ -20,8 +20,8 @@ import (
 
 	"github.com/urfave/cli/v2"
 
-	"github.com/mudler/edgevpn/cmd"
-	internal "github.com/mudler/edgevpn/internal"
+	"github.com/l0caldadmin/edgevpn/cmd"
+	internal "github.com/l0caldadmin/edgevpn/internal"
 )
 
 func main() {

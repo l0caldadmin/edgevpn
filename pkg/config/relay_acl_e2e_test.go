@@ -26,7 +26,7 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
-	. "github.com/mudler/edgevpn/pkg/config"
+	. "github.com/l0caldadmin/edgevpn/pkg/config"
 )
 
 // newPublicHost starts a libp2p host on a local TCP listener and forces its

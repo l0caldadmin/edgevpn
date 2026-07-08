@@ -22,9 +22,9 @@ import (
 	"github.com/libp2p/go-libp2p"
 	relayv2 "github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay"
 
-	"github.com/mudler/edgevpn/pkg/blockchain"
-	"github.com/mudler/edgevpn/pkg/config"
-	"github.com/mudler/edgevpn/pkg/node"
+	"github.com/l0caldadmin/edgevpn/pkg/blockchain"
+	"github.com/l0caldadmin/edgevpn/pkg/config"
+	"github.com/l0caldadmin/edgevpn/pkg/node"
 )
 
 // TestRelayServiceKnobsApplied builds a libp2p relay using the exact

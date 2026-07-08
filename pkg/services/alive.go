@@ -19,11 +19,11 @@ import (
 	"context"
 	"time"
 
-	"github.com/mudler/edgevpn/pkg/node"
-	"github.com/mudler/edgevpn/pkg/protocol"
-	"github.com/mudler/edgevpn/pkg/utils"
+	"github.com/l0caldadmin/edgevpn/pkg/node"
+	"github.com/l0caldadmin/edgevpn/pkg/protocol"
+	"github.com/l0caldadmin/edgevpn/pkg/utils"
 
-	"github.com/mudler/edgevpn/pkg/blockchain"
+	"github.com/l0caldadmin/edgevpn/pkg/blockchain"
 )
 
 func AliveNetworkService(announcetime, scrubTime, maxtime time.Duration) node.NetworkService {

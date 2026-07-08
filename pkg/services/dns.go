@@ -24,10 +24,10 @@ import (
 	lru "github.com/hashicorp/golang-lru"
 	"github.com/ipfs/go-log"
 	"github.com/miekg/dns"
-	"github.com/mudler/edgevpn/pkg/blockchain"
-	"github.com/mudler/edgevpn/pkg/node"
-	"github.com/mudler/edgevpn/pkg/protocol"
-	"github.com/mudler/edgevpn/pkg/types"
+	"github.com/l0caldadmin/edgevpn/pkg/blockchain"
+	"github.com/l0caldadmin/edgevpn/pkg/node"
+	"github.com/l0caldadmin/edgevpn/pkg/protocol"
+	"github.com/l0caldadmin/edgevpn/pkg/types"
 	"github.com/pkg/errors"
 )
 

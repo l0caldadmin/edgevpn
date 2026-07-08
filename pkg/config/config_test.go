@@ -17,7 +17,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mudler/edgevpn/pkg/blockchain"
+	"github.com/l0caldadmin/edgevpn/pkg/blockchain"
 )
 
 // TestRelayServiceResourcesDefaults verifies that a zero-valued RelayService

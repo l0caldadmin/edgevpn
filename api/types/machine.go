@@ -13,7 +13,7 @@ limitations under the License.
 
 package types
 
-import "github.com/mudler/edgevpn/pkg/types"
+import "github.com/l0caldadmin/edgevpn/pkg/types"
 
 type Machine struct {
 	types.Machine

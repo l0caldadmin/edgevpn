@@ -24,9 +24,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mudler/edgevpn/api"
-	"github.com/mudler/edgevpn/pkg/blockchain"
-	"github.com/mudler/edgevpn/pkg/types"
+	"github.com/l0caldadmin/edgevpn/api"
+	"github.com/l0caldadmin/edgevpn/pkg/blockchain"
+	"github.com/l0caldadmin/edgevpn/pkg/types"
 )
 
 type (

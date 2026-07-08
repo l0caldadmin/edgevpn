@@ -27,10 +27,10 @@ import (
 
 	"github.com/libp2p/go-libp2p/core/network"
 	"github.com/libp2p/go-libp2p/core/peer"
-	"github.com/mudler/edgevpn/pkg/blockchain"
-	"github.com/mudler/edgevpn/pkg/node"
-	"github.com/mudler/edgevpn/pkg/protocol"
-	"github.com/mudler/edgevpn/pkg/types"
+	"github.com/l0caldadmin/edgevpn/pkg/blockchain"
+	"github.com/l0caldadmin/edgevpn/pkg/node"
+	"github.com/l0caldadmin/edgevpn/pkg/protocol"
+	"github.com/l0caldadmin/edgevpn/pkg/types"
 )
 
 func egressHandler(n *node.Node, b *blockchain.Ledger) func(stream network.Stream) {

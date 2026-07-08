@@ -27,12 +27,12 @@ import (
 	"github.com/libp2p/go-libp2p/p2p/net/conngater"
 	multiaddr "github.com/multiformats/go-multiaddr"
 
-	"github.com/mudler/edgevpn/pkg/crypto"
-	protocol "github.com/mudler/edgevpn/pkg/protocol"
+	"github.com/l0caldadmin/edgevpn/pkg/crypto"
+	protocol "github.com/l0caldadmin/edgevpn/pkg/protocol"
 
-	"github.com/mudler/edgevpn/pkg/blockchain"
-	hub "github.com/mudler/edgevpn/pkg/hub"
-	"github.com/mudler/edgevpn/pkg/logger"
+	"github.com/l0caldadmin/edgevpn/pkg/blockchain"
+	hub "github.com/l0caldadmin/edgevpn/pkg/hub"
+	"github.com/l0caldadmin/edgevpn/pkg/logger"
 )
 
 type Node struct {

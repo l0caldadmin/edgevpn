@@ -18,8 +18,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/mudler/edgevpn/pkg/node"
-	"github.com/mudler/edgevpn/pkg/services"
+	"github.com/l0caldadmin/edgevpn/pkg/node"
+	"github.com/l0caldadmin/edgevpn/pkg/services"
 	"github.com/urfave/cli/v2"
 )
 

@@ -16,7 +16,7 @@ package cmd
 import (
 	"context"
 
-	"github.com/mudler/edgevpn/pkg/node"
+	"github.com/l0caldadmin/edgevpn/pkg/node"
 	"github.com/urfave/cli/v2"
 )
 

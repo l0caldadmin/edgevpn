@@ -21,10 +21,10 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
-	"github.com/mudler/edgevpn/pkg/blockchain"
-	"github.com/mudler/edgevpn/pkg/logger"
-	node "github.com/mudler/edgevpn/pkg/node"
-	. "github.com/mudler/edgevpn/pkg/services"
+	"github.com/l0caldadmin/edgevpn/pkg/blockchain"
+	"github.com/l0caldadmin/edgevpn/pkg/logger"
+	node "github.com/l0caldadmin/edgevpn/pkg/node"
+	. "github.com/l0caldadmin/edgevpn/pkg/services"
 )
 
 var _ = Describe("Alive service", func() {

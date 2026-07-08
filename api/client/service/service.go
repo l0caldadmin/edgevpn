@@ -20,8 +20,8 @@ import (
 	"strings"
 	"time"
 
-	edgeVPNClient "github.com/mudler/edgevpn/api/client"
-	"github.com/mudler/edgevpn/pkg/protocol"
+	edgeVPNClient "github.com/l0caldadmin/edgevpn/api/client"
+	"github.com/l0caldadmin/edgevpn/pkg/protocol"
 )
 
 // Client is a wrapper of an edgeVPN client

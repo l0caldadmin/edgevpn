@@ -13,9 +13,9 @@
     <img src="https://img.shields.io/badge/licence-GPL3-brightgreen"
          alt="license">
   </a>
-  <a href="https://github.com/mudler/edgevpn/issues"><img src="https://img.shields.io/github/issues/mudler/edgevpn"></a>
+  <a href="https://github.com/l0caldadmin/edgevpn/issues"><img src="https://img.shields.io/github/issues/mudler/edgevpn"></a>
   <img src="https://img.shields.io/badge/made%20with-Go-blue">
-  <img src="https://goreportcard.com/badge/github.com/mudler/edgevpn" alt="go report card" />
+  <img src="https://goreportcard.com/badge/github.com/l0caldadmin/edgevpn" alt="go report card" />
 </p>
 
 <p align="center">
@@ -60,7 +60,7 @@ Services            |  Blockchain index
 
 # :new: GUI
 
-A Desktop GUI application (alpha) for Linux is available [here](https://github.com/mudler/edgevpn-gui)
+A Desktop GUI application (alpha) for Linux is available [here](https://github.com/l0caldadmin/edgevpn-gui)
 
 Dashboard            |  Connections index
 :-------------------------:|:-------------------------:
@@ -73,7 +73,7 @@ Check out [Kairos](https://github.com/kairos-io/kairos) for seeing EdgeVPN in ac
 
 # :running: Installation
 
-Download the precompiled static release in the [releases page](https://github.com/mudler/edgevpn/releases). You can either install it in your system or just run it.
+Download the precompiled static release in the [releases page](https://github.com/l0caldadmin/edgevpn/releases). You can either install it in your system or just run it.
 
 # :computer: Usage
 
@@ -216,7 +216,7 @@ To join a node in a network from a token, without starting the vpn:
 ```golang
 
 import (
-    node "github.com/mudler/edgevpn/pkg/node"
+    node "github.com/l0caldadmin/edgevpn/pkg/node"
 )
 
 e := node.New(
@@ -236,8 +236,8 @@ or to start a VPN:
 ```golang
 
 import (
-    vpn "github.com/mudler/edgevpn/pkg/vpn"
-    node "github.com/mudler/edgevpn/pkg/node"
+    vpn "github.com/l0caldadmin/edgevpn/pkg/vpn"
+    node "github.com/l0caldadmin/edgevpn/pkg/node"
 )
 
 opts, err := vpn.Register(vpnOpts...)

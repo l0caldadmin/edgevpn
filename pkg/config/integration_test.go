@@ -18,7 +18,7 @@ import (
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	"github.com/mudler/edgevpn/pkg/config"
+	"github.com/l0caldadmin/edgevpn/pkg/config"
 )
 
 var _ = Describe("Config integration: observe mode rollout", func() {

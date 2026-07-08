@@ -8,12 +8,12 @@ description: >
 ---
 
 ## Contributing to EdgeVPN
-Contribution guidelines for the EdgeVPN project are on the [Github repository](https://github.com/mudler/edgevpn/blob/master/CONTRIBUTING.md). Here you can find some heads up for contributing to the documentation website.
+Contribution guidelines for the EdgeVPN project are on the [Github repository](https://github.com/l0caldadmin/edgevpn/blob/master/CONTRIBUTING.md). Here you can find some heads up for contributing to the documentation website.
 
 ## Contributing to the Docs website
 
 ### We Develop with Github
-We use [github to host code](https://github.com/mudler/edgevpn), to track issues and feature requests, as well as accept pull requests.
+We use [github to host code](https://github.com/l0caldadmin/edgevpn), to track issues and feature requests, as well as accept pull requests.
 
 We use [Hugo](https://gohugo.io/) to format and generate our website, the
 [Docsy](https://github.com/google/docsy) theme for styling and site structure, 
@@ -44,7 +44,7 @@ Here's a quick guide to updating the docs with a git local checkout. It assumes 
 GitHub workflow and you're happy to use the automated preview of your doc
 updates:
 
-1. Fork the [the repo](https://github.com/mudler/edgevpn) on GitHub.
+1. Fork the [the repo](https://github.com/l0caldadmin/edgevpn) on GitHub.
 2. Make your changes, if are related to docs
    to see the preview run `make serve` from the `docs` dir, then browse to [localhost:1313](http://localhost:1313)
 3. If you're not yet ready for a review, add "WIP" to the PR name to indicate 

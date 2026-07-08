@@ -19,8 +19,8 @@ import (
 	"sync"
 	"time"
 
-	internalCrypto "github.com/mudler/edgevpn/pkg/crypto"
-	"github.com/mudler/edgevpn/pkg/utils"
+	internalCrypto "github.com/l0caldadmin/edgevpn/pkg/crypto"
+	"github.com/l0caldadmin/edgevpn/pkg/utils"
 
 	"github.com/ipfs/go-log"
 	"github.com/libp2p/go-libp2p"

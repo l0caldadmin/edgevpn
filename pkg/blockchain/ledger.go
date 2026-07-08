@@ -24,9 +24,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/mudler/edgevpn/pkg/hub"
-	"github.com/mudler/edgevpn/pkg/protocol"
-	"github.com/mudler/edgevpn/pkg/utils"
+	"github.com/l0caldadmin/edgevpn/pkg/hub"
+	"github.com/l0caldadmin/edgevpn/pkg/protocol"
+	"github.com/l0caldadmin/edgevpn/pkg/utils"
 
 	"github.com/pkg/errors"
 )

@@ -21,7 +21,7 @@ import (
 	mrand "math/rand"
 	"net"
 
-	internalCrypto "github.com/mudler/edgevpn/pkg/crypto"
+	internalCrypto "github.com/l0caldadmin/edgevpn/pkg/crypto"
 
 	"github.com/libp2p/go-libp2p"
 	"github.com/libp2p/go-libp2p/core/crypto"
@@ -29,7 +29,7 @@ import (
 	"github.com/libp2p/go-libp2p/core/peer"
 	conngater "github.com/libp2p/go-libp2p/p2p/net/conngater"
 	"github.com/libp2p/go-libp2p/p2p/net/swarm"
-	hub "github.com/mudler/edgevpn/pkg/hub"
+	hub "github.com/l0caldadmin/edgevpn/pkg/hub"
 	multiaddr "github.com/multiformats/go-multiaddr"
 )
 

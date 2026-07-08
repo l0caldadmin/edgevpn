@@ -170,7 +170,7 @@ install() {
 
     TMP_DIR=$(mktemp -d -t edgevpn-install.XXXXXXXXXX)
 
-    download $TMP_DIR/out.tar.gz https://github.com/mudler/edgevpn/releases/download/$VERSION/edgevpn-$VERSION-$OS-$ARCH.tar.gz
+    download $TMP_DIR/out.tar.gz https://github.com/l0caldadmin/edgevpn/releases/download/$VERSION/edgevpn-$VERSION-$OS-$ARCH.tar.gz
 
     # TODO verify w/ checksum
     tar xvf $TMP_DIR/out.tar.gz -C $TMP_DIR

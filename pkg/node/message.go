@@ -16,7 +16,7 @@
 package node
 
 import (
-	hub "github.com/mudler/edgevpn/pkg/hub"
+	hub "github.com/l0caldadmin/edgevpn/pkg/hub"
 )
 
 // messageWriter is a struct returned by the node that satisfies the io.Writer interface

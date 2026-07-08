@@ -1,4 +1,4 @@
-module github.com/mudler/edgevpn/docs
+module github.com/l0caldadmin/edgevpn/docs
 
 go 1.24
 

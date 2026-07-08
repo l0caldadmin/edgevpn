@@ -19,9 +19,9 @@ import (
 	"strings"
 
 	"github.com/ipfs/go-log/v2"
-	"github.com/mudler/edgevpn/pkg/blockchain"
-	"github.com/mudler/edgevpn/pkg/hub"
-	"github.com/mudler/edgevpn/pkg/node"
+	"github.com/l0caldadmin/edgevpn/pkg/blockchain"
+	"github.com/l0caldadmin/edgevpn/pkg/hub"
+	"github.com/l0caldadmin/edgevpn/pkg/node"
 )
 
 type ECDSA521 struct {

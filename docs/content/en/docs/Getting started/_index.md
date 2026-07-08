@@ -12,7 +12,7 @@ Prerequisites: No dependencies. EdgeVPN releases are statically compiled.
 
 ### From release
 
-Just grab a release from [the release page on GitHub](https://github.com/mudler/edgevpn/releases). The binaries are statically compiled.
+Just grab a release from [the release page on GitHub](https://github.com/l0caldadmin/edgevpn/releases). The binaries are statically compiled.
 
 ### Via Homebrew on Macos
 
@@ -31,7 +31,7 @@ Requirements:
 - make
 
 ```bash
-$> git clone https://github.com/mudler/edgevpn
+$> git clone https://github.com/l0caldadmin/edgevpn
 $> cd edgevpn
 $> go build
 ```
@@ -39,10 +39,10 @@ $> go build
 ### Using Docker Compose
 
 Using docker is still experimental as setups can vary wildly.
-An example [docker-compose.yml](https://github.com/mudler/edgevpn/blob/master/docker-compose.yml) file is provided for convenience but you'll likely need to edit it.
+An example [docker-compose.yml](https://github.com/l0caldadmin/edgevpn/blob/master/docker-compose.yml) file is provided for convenience but you'll likely need to edit it.
 
 ```bash
-$> git clone https://github.com/mudler/edgevpn
+$> git clone https://github.com/l0caldadmin/edgevpn
 $> cd edgevpn
 $> sudo docker compose up --detach
 ```

@@ -20,7 +20,7 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
-	"github.com/mudler/edgevpn/pkg/hub"
+	"github.com/l0caldadmin/edgevpn/pkg/hub"
 )
 
 // msgFor wraps a ledger's last block into the wire form Update expects

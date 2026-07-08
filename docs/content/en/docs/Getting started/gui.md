@@ -6,7 +6,7 @@ description: >
   GUI app
 ---
 
-A Desktop GUI application (alpha) for Linux is available [here](https://github.com/mudler/edgevpn-gui).
+A Desktop GUI application (alpha) for Linux is available [here](https://github.com/l0caldadmin/edgevpn-gui).
 
 Note the GUI doesn't require the CLI to be installed. It will automatically prompt to download the latest available version, and offer a version management option.
 

@@ -16,7 +16,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/mudler/edgevpn/pkg/trustzone/authprovider/ecdsa"
+	"github.com/l0caldadmin/edgevpn/pkg/trustzone/authprovider/ecdsa"
 	"github.com/urfave/cli/v2"
 )
 

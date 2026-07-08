@@ -21,8 +21,8 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
-	"github.com/mudler/edgevpn/pkg/hub"
-	"github.com/mudler/edgevpn/pkg/protocol"
+	"github.com/l0caldadmin/edgevpn/pkg/hub"
+	"github.com/l0caldadmin/edgevpn/pkg/protocol"
 )
 
 // --- helpers -------------------------------------------------------------

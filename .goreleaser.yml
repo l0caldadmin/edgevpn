@@ -3,8 +3,8 @@ version: 2
 builds:
   - ldflags:
       - -w -s
-      - -X github.com/mudler/edgevpn/internal.Version={{.Tag}}
-      - -X github.com/mudler/edgevpn/internal.Commit={{.Commit}}
+      - -X github.com/l0caldadmin/edgevpn/internal.Version={{.Tag}}
+      - -X github.com/l0caldadmin/edgevpn/internal.Commit={{.Commit}}
     env:
       - CGO_ENABLED=0
     goos:

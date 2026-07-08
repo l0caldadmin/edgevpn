@@ -16,7 +16,7 @@ package blockchain
 import (
 	"time"
 
-	"github.com/mudler/edgevpn/pkg/protocol"
+	"github.com/l0caldadmin/edgevpn/pkg/protocol"
 )
 
 // ExpiryKind selects how a bucket's entries are aged out. See
