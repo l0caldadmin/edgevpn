@@ -12,7 +12,7 @@ require (
 	github.com/hashicorp/golang-lru v1.0.2
 	github.com/ipfs/go-log v1.0.5
 	github.com/ipfs/go-log/v2 v2.9.2
-	github.com/l0caldadmin/water v0.0.0-20260708175602-1c6bdaae76e0
+	github.com/l0caldadmin/water v0.0.0-20260709143646-eebf05ff38cf
 	github.com/labstack/echo/v4 v4.15.4
 	github.com/libp2p/go-libp2p v0.48.0
 	github.com/libp2p/go-libp2p-kad-dht v0.41.0
@@ -146,7 +146,7 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/crypto v0.54.0 // indirect
-	golang.org/x/exp v0.0.0-20260611194520-c48552f49976 // indirect
+	golang.org/x/exp v0.0.0-20260709172345-9ea1abe57597 // indirect
 	golang.org/x/mod v0.38.0 // indirect
 	golang.org/x/net v0.57.0 // indirect
 	golang.org/x/sync v0.22.0 // indirect
